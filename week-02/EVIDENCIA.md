@@ -51,7 +51,10 @@ Resultado observado:
 PASS: CasoManual devuelve el contrato esperado
 PASS: CasoReprueba sustituye al caso ejecutable
 PASS: CasoManual conserva la versión
+PASS: el resultado conserva la campaña
 PASS: CasoReprueba conserva el tenant
+PASS: la re-prueba conserva el defecto
+PASS: la re-prueba conserva el caso original
 PASS: el resultado conserva el rol
 PASS: el resultado conserva el ejecutor
 PASS: la ejecución conserva evidencia
@@ -63,7 +66,7 @@ PASS: el validador rechaza un borrador incompleto
 PASS: una observación sin evidencia se rechaza
 PASS: un contexto incompleto se rechaza
 PASS: el gestor rechaza un borrador por su parámetro tipado
-Resultado: 15/15 validaciones superadas.
+Resultado: 18/18 validaciones superadas.
 ```
 
 Resultado: **PASS**.
@@ -93,7 +96,7 @@ Resultado observado:
 Generating single mermaid chart
 Generating single mermaid chart
 diseno-antes-lsp.png: 134986 bytes
-diseno-despues-lsp.png: 242741 bytes
+diseno-despues-lsp.png: 253228 bytes
 ```
 
 Ambas imágenes se abrieron y revisaron visualmente. Los nombres, relaciones, notas y

@@ -20,7 +20,7 @@
 | CA-14 | RNF-06 | Un `CasoManual` o `CasoReprueba` válido | Sustituye a otro `CasoRegresionEjecutable` | Acepta el mismo contexto y observación, devuelve `ResultadoEjecucion` y no altera el algoritmo del gestor. |
 | CA-15 | RNF-06 | Un nuevo `CasoNegativoManual` que cumple `CasoRegresionEjecutable` | Se procesa con `GestorCampana.ejecutarCaso()` | El gestor devuelve su resultado sin modificarse ni agregar condiciones por tipo. |
 | CA-16 | RNF-06 | Un `CasoBorrador` incompleto | Se pasa al método tipado del gestor | PHP lo rechaza porque no implementa `CasoRegresionEjecutable`. |
-| CA-17 | RNF-02 | Un contexto con versión, ambiente, tenant, rol, ejecutor y fecha | Se registra una observación manual | El resultado conserva esos datos junto con caso, requisito y evidencia. |
+| CA-17 | RNF-02 | Un contexto con campaña, versión, ambiente, tenant, rol, ejecutor y fecha | Se registra una observación manual | El resultado conserva esos datos junto con caso, requisito y evidencia. |
 | CA-18 | RNF-03 | Un caso con precondiciones, pasos, datos ficticios y resultado esperado completos | Otro analista revisa el caso | Puede repetirlo sin solicitar instrucciones no documentadas. |
 | CA-19 | RNF-04 | Una observación sin evidencia | Se intenta construir el registro de ejecución | La validación la rechaza y no permite concluir un estado sin respaldo. |
 | CA-20 | RNF-08 | Una ejecución registrada | El revisor consulta su evidencia | Puede identificar fecha, ejecutor, versión y resultado observado desde el mismo registro. |

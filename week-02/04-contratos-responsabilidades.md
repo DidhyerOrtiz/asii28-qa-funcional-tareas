@@ -18,7 +18,8 @@ obtener un trato especial dentro de `GestorCampana`.
 ### 1.2 Precondiciones
 
 - El caso fue validado y tiene identificador, requisito, pasos y resultado esperado.
-- `ContextoEjecucion` identifica versión, ambiente, tenant, rol, ejecutor y fecha.
+- `ContextoEjecucion` identifica campaña, versión, ambiente, tenant, rol, ejecutor y
+  fecha.
 - `ObservacionManual` contiene estado, resultado observado y evidencia.
 - Los datos requeridos por el caso son ficticios y están disponibles.
 - El rol indicado tiene autorización para el escenario evaluado.
@@ -32,8 +33,8 @@ implementaciones.
 ### 1.3 Postcondiciones
 
 - La operación devuelve un `ResultadoEjecucion` no nulo.
-- El resultado conserva caso, requisito, versión, ambiente, tenant, rol, ejecutor y
-  fecha.
+- El resultado conserva campaña, caso, requisito, versión, ambiente, tenant, rol,
+  ejecutor y fecha.
 - El estado pertenece a `Aprobado`, `Fallido` o `Bloqueado` cuando hubo intento de
   ejecución; `No ejecutado` se asigna por planificación, sin invocar `ejecutar()`.
 - Un resultado `Fallido` contiene resultado observado y referencias de evidencia.
@@ -61,7 +62,7 @@ implementaciones.
 | `CasoNegativoManual` | Demostrar que una nueva variante válida puede usar el mismo contrato. | Exigir cambios o condiciones especiales en el gestor. |
 | `CasoBorrador` | Conservar información en preparación y permitir comprobar si está completa. | Implementar el contrato ejecutable antes de ser validado. |
 | `ValidadorCaso` | Validar el borrador y convertirlo en un caso manual completo. | Ejecutar campañas o registrar evidencias. |
-| `ContextoEjecucion` | Transportar versión, ambiente, tenant, rol, ejecutor y fecha. | Decidir el resultado del caso. |
+| `ContextoEjecucion` | Transportar campaña, versión, ambiente, tenant, rol, ejecutor y fecha. | Decidir el resultado del caso. |
 | `ObservacionManual` | Transportar el estado, resultado observado, evidencia y causa de bloqueo registrados por QA. | Inventar datos del contexto. |
 | `ResultadoEjecucion` | Consolidar el caso, contexto y observación de forma trazable. | Ejecutar pasos o crear defectos por sí mismo. |
 | `GestorCampana` | Procesar un caso a través del contrato tipado y devolver su resultado. | Preguntar si un objeto es `CasoManual`, `CasoReprueba` o `CasoBorrador`. |
@@ -78,6 +79,7 @@ esta tabla para el diseño posterior del módulo.
 GestorCampana --> CasoRegresionEjecutable
 CasoManual ----> CasoRegresionEjecutable
 CasoReprueba --> CasoRegresionEjecutable
+CasoNegativoManual --> CasoRegresionEjecutable
 GestorCampana --> ContextoEjecucion
 GestorCampana --> ObservacionManual
 CasoManual ----> ResultadoEjecucion

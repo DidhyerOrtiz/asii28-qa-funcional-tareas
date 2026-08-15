@@ -56,9 +56,9 @@ el tipo concreto antes de ejecutar y la sustitución deja de ser segura.
 
 ![Diseño mejorado con LSP](diagramas/imagenes/diseno-despues-lsp.png)
 
-Solo `CasoManual` y `CasoReprueba` implementan `CasoRegresionEjecutable`.
-`CasoBorrador` permanece fuera de la campaña hasta que `ValidadorCaso` produce un caso
-válido.
+`CasoManual`, `CasoReprueba` y la extensión demostrativa `CasoNegativoManual`
+implementan `CasoRegresionEjecutable`. `CasoBorrador` permanece fuera de la campaña
+hasta que `ValidadorCaso` produce un caso válido.
 
 ## Validación rápida
 
@@ -72,7 +72,7 @@ php docs/asii-28/week-02/ejemplos/validar-sustitucion.php
 Resultado esperado:
 
 ```text
-Resultado: 15/15 validaciones superadas.
+Resultado: 18/18 validaciones superadas.
 ```
 
 Para volver a generar las imágenes con Mermaid CLI:

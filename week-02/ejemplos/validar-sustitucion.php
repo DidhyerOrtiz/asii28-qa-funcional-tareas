@@ -16,6 +16,7 @@ interface CasoRegresionEjecutable
 
 final class ContextoEjecucion
 {
+    public readonly string $campanaId;
     public readonly string $version;
     public readonly string $ambiente;
     public readonly string $tenant;
@@ -24,6 +25,7 @@ final class ContextoEjecucion
     public readonly string $fecha;
 
     public function __construct(
+        string $campanaId,
         string $version,
         string $ambiente,
         string $tenant,
@@ -31,6 +33,7 @@ final class ContextoEjecucion
         string $ejecutor,
         string $fecha,
     ) {
+        $this->campanaId = textoObligatorio($campanaId, 'campaña');
         $this->version = textoObligatorio($version, 'versión');
         $this->ambiente = textoObligatorio($ambiente, 'ambiente');
         $this->tenant = textoObligatorio($tenant, 'tenant');
@@ -81,6 +84,7 @@ final readonly class ResultadoEjecucion
 {
     /** @param list<string> $evidencias */
     public function __construct(
+        public string $campanaId,
         public string $casoId,
         public string $requisitoId,
         public string $estado,
@@ -93,6 +97,8 @@ final readonly class ResultadoEjecucion
         public string $resultadoObservado,
         public array $evidencias,
         public ?string $causaBloqueo = null,
+        public ?string $defectoOrigen = null,
+        public ?string $casoOriginalId = null,
     ) {
     }
 }
@@ -174,19 +180,42 @@ final class CasoReprueba implements CasoRegresionEjecutable
         ContextoEjecucion $contexto,
         ObservacionManual $observacion,
     ): ResultadoEjecucion {
-        return crearResultado($this, $contexto, $observacion);
+        return crearResultado(
+            $this,
+            $contexto,
+            $observacion,
+            $this->defectoOrigen,
+            $this->casoOriginal->obtenerId(),
+        );
     }
 }
 
 final class CasoNegativoManual implements CasoRegresionEjecutable
 {
+    /** @var list<string> */
+    private array $pasos;
     private string $id;
     private string $requisitoId;
+    private string $resultadoEsperado;
 
-    public function __construct(string $id, string $requisitoId)
-    {
+    /** @param list<string> $pasos */
+    public function __construct(
+        string $id,
+        string $requisitoId,
+        array $pasos,
+        string $resultadoEsperado,
+    ) {
+        if ($pasos === [] || array_filter($pasos, 'esTextoVacio') !== []) {
+            throw new InvalidArgumentException('Los pasos deben estar completos.');
+        }
+
         $this->id = textoObligatorio($id, 'identificador');
         $this->requisitoId = textoObligatorio($requisitoId, 'requisito');
+        $this->pasos = $pasos;
+        $this->resultadoEsperado = textoObligatorio(
+            $resultadoEsperado,
+            'resultado esperado',
+        );
     }
 
     public function obtenerId(): string
@@ -228,9 +257,14 @@ final readonly class CasoBorrador
 
 final class ValidadorCaso
 {
+    public function validar(CasoBorrador $borrador): bool
+    {
+        return $borrador->estaCompleto();
+    }
+
     public function convertir(string $id, CasoBorrador $borrador): CasoManual
     {
-        if (!$borrador->estaCompleto()) {
+        if (!$this->validar($borrador)) {
             throw new InvalidArgumentException('El borrador está incompleto.');
         }
 
@@ -274,8 +308,11 @@ function crearResultado(
     CasoRegresionEjecutable $caso,
     ContextoEjecucion $contexto,
     ObservacionManual $observacion,
+    ?string $defectoOrigen = null,
+    ?string $casoOriginalId = null,
 ): ResultadoEjecucion {
     return new ResultadoEjecucion(
+        $contexto->campanaId,
         $caso->obtenerId(),
         $caso->obtenerRequisitoId(),
         $observacion->estado,
@@ -288,6 +325,8 @@ function crearResultado(
         $observacion->resultadoObservado,
         $observacion->evidencias,
         $observacion->causaBloqueo,
+        $defectoOrigen,
+        $casoOriginalId,
     );
 }
 
@@ -302,6 +341,7 @@ function verificar(bool $condicion, string $mensaje): void
 }
 
 $contexto = new ContextoEjecucion(
+    'CAMP-REG-2026-01',
     'commit-demo-2026',
     'qa-local',
     'TENANT-DEMO',
@@ -318,7 +358,12 @@ $borradorValido = new CasoBorrador(
 $validador = new ValidadorCaso();
 $casoManual = $validador->convertir('QA-001', $borradorValido);
 $casoReprueba = new CasoReprueba('QA-002', 'RF-07', 'DEF-DEMO-01', $casoManual);
-$casoNegativo = new CasoNegativoManual('QA-003', 'RF-05');
+$casoNegativo = new CasoNegativoManual(
+    'QA-003',
+    'RF-05',
+    ['Intentar operación no autorizada', 'Registrar respuesta'],
+    'El sistema rechaza la operación',
+);
 
 $observacionAprobada = new ObservacionManual(
     'Aprobado',
@@ -339,7 +384,10 @@ $resultadoNegativo = $gestor->ejecutarCaso($casoNegativo, $contexto, $observacio
 verificar($resultadoManual instanceof ResultadoEjecucion, 'CasoManual devuelve el contrato esperado');
 verificar($resultadoReprueba instanceof ResultadoEjecucion, 'CasoReprueba sustituye al caso ejecutable');
 verificar($resultadoManual->version === $contexto->version, 'CasoManual conserva la versión');
+verificar($resultadoManual->campanaId === $contexto->campanaId, 'el resultado conserva la campaña');
 verificar($resultadoReprueba->tenant === $contexto->tenant, 'CasoReprueba conserva el tenant');
+verificar($resultadoReprueba->defectoOrigen === 'DEF-DEMO-01', 'la re-prueba conserva el defecto');
+verificar($resultadoReprueba->casoOriginalId === 'QA-001', 'la re-prueba conserva el caso original');
 verificar($resultadoManual->rol === $contexto->rol, 'el resultado conserva el rol');
 verificar($resultadoManual->ejecutor === $contexto->ejecutor, 'el resultado conserva el ejecutor');
 verificar($resultadoManual->evidencias !== [], 'la ejecución conserva evidencia');
@@ -379,7 +427,7 @@ verificar($rechazadoSinEvidencia, 'una observación sin evidencia se rechaza');
 $rechazadoSinContexto = false;
 
 try {
-    new ContextoEjecucion('commit-demo-2026', '', 'TENANT-DEMO', 'ANALISTA_QA', 'QA-DEMO-01', '2026-08-15');
+    new ContextoEjecucion('CAMP-REG-2026-01', 'commit-demo-2026', '', 'TENANT-DEMO', 'ANALISTA_QA', 'QA-DEMO-01', '2026-08-15');
 } catch (InvalidArgumentException) {
     $rechazadoSinContexto = true;
 }
@@ -396,4 +444,4 @@ try {
 
 verificar($rechazadoPorTipo, 'el gestor rechaza un borrador por su parámetro tipado');
 
-echo "Resultado: 15/15 validaciones superadas.\n";
+echo "Resultado: 18/18 validaciones superadas.\n";

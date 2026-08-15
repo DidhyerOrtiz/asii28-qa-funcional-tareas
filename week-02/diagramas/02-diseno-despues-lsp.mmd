@@ -27,6 +27,8 @@ classDiagram
     class CasoNegativoManual {
         -String id
         -String requisitoId
+        -List pasos
+        -String resultadoEsperado
         +ejecutar(ContextoEjecucion, ObservacionManual) ResultadoEjecucion
     }
 
@@ -43,6 +45,7 @@ classDiagram
     }
 
     class ContextoEjecucion {
+        +String campanaId
         +String version
         +String ambiente
         +String tenant
@@ -59,6 +62,7 @@ classDiagram
     }
 
     class ResultadoEjecucion {
+        +String campanaId
         +String casoId
         +String requisitoId
         +EstadoEjecucion estado
@@ -71,6 +75,8 @@ classDiagram
         +String resultadoObservado
         +List evidencias
         +String causaBloqueo
+        +String defectoOrigen
+        +String casoOriginalId
     }
 
     class GestorCampana {

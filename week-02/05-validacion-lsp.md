@@ -15,7 +15,7 @@ clínicas ni afirma que el diseño ya esté integrado en el HIS.
 |---|---|---|---|---|
 | VS-01 | Sustituir el contrato por `CasoManual` | Procesar contexto y observación válidos | Devuelve `ResultadoEjecucion`. | CA-06, CA-14 |
 | VS-02 | Sustituir el contrato por `CasoReprueba` | Procesarlo con el mismo método | Devuelve el mismo tipo sin cambiar el gestor. | CA-14 |
-| VS-03 | Conservar el contexto | Procesar ambas implementaciones | Los resultados mantienen versión, tenant, rol y ejecutor. | CA-17 |
+| VS-03 | Conservar el contexto | Procesar ambas implementaciones | Los resultados mantienen campaña, versión, tenant, rol y ejecutor. | CA-17 |
 | VS-04 | Conservar la observación | Registrar resultado y evidencia manual | El resultado reproduce lo observado, sin inventar una aprobación. | CA-06, CA-19 |
 | VS-05 | Incorporar un borrador incompleto | Pasarlo al método tipado | PHP lo rechaza porque no implementa el contrato. | CA-02, CA-16 |
 | VS-06 | Agregar `CasoNegativoManual` | Implementar y procesar el mismo contrato | El gestor obtiene el estado `Fallido` sin modificaciones. | CA-15 |
@@ -42,7 +42,10 @@ No syntax errors detected in docs/asii-28/week-02/ejemplos/validar-sustitucion.p
 PASS: CasoManual devuelve el contrato esperado
 PASS: CasoReprueba sustituye al caso ejecutable
 PASS: CasoManual conserva la versión
+PASS: el resultado conserva la campaña
 PASS: CasoReprueba conserva el tenant
+PASS: la re-prueba conserva el defecto
+PASS: la re-prueba conserva el caso original
 PASS: el resultado conserva el rol
 PASS: el resultado conserva el ejecutor
 PASS: la ejecución conserva evidencia
@@ -54,7 +57,7 @@ PASS: el validador rechaza un borrador incompleto
 PASS: una observación sin evidencia se rechaza
 PASS: un contexto incompleto se rechaza
 PASS: el gestor rechaza un borrador por su parámetro tipado
-Resultado: 15/15 validaciones superadas.
+Resultado: 18/18 validaciones superadas.
 ```
 
 ## 4. Interpretación
