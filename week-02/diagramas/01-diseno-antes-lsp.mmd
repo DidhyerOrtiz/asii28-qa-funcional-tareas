@@ -1,0 +1,37 @@
+classDiagram
+    direction LR
+
+    class CasoRegresion {
+        <<abstract>>
+        +String id
+        +String requisitoId
+        +ejecutar(ContextoEjecucion) ResultadoEjecucion
+        +registrarEvidencia()
+    }
+
+    class CasoManual {
+        +ejecutar(ContextoEjecucion) ResultadoEjecucion
+    }
+
+    class CasoReprueba {
+        +String defectoOrigen
+        +ejecutar(ContextoEjecucion) ResultadoEjecucion
+    }
+
+    class CasoBorrador {
+        +Boolean completo
+        +ejecutar(ContextoEjecucion) ResultadoEjecucion
+    }
+
+    class GestorCampana {
+        +ejecutarCasos(List~CasoRegresion~, ContextoEjecucion)
+        +verificarTipo(CasoRegresion)
+    }
+
+    CasoRegresion <|-- CasoManual
+    CasoRegresion <|-- CasoReprueba
+    CasoRegresion <|-- CasoBorrador
+    GestorCampana --> CasoRegresion : ejecuta
+
+    note for CasoBorrador "Viola LSP: ejecutar() lanza una excepción porque el borrador todavía no es ejecutable"
+    note for GestorCampana "Comprueba tipos concretos para evitar la excepción"
