@@ -1,0 +1,78 @@
+classDiagram
+    direction LR
+
+    class CasoRegresionEjecutable {
+        <<interface>>
+        +obtenerId() String
+        +obtenerRequisitoId() String
+        +ejecutar(ContextoEjecucion) ResultadoEjecucion
+    }
+
+    class CasoManual {
+        -String id
+        -String requisitoId
+        -List pasos
+        -String resultadoEsperado
+        +ejecutar(ContextoEjecucion) ResultadoEjecucion
+    }
+
+    class CasoReprueba {
+        -String id
+        -String requisitoId
+        -String defectoOrigen
+        -CasoRegresionEjecutable casoOriginal
+        +ejecutar(ContextoEjecucion) ResultadoEjecucion
+    }
+
+    class CasoBorrador {
+        +String requisitoId
+        +List pasos
+        +String resultadoEsperado
+        +estaCompleto() Boolean
+    }
+
+    class ValidadorCaso {
+        +validar(CasoBorrador) Boolean
+        +convertir(CasoBorrador) CasoManual
+    }
+
+    class ContextoEjecucion {
+        +String version
+        +String ambiente
+        +String tenant
+        +String rol
+    }
+
+    class ResultadoEjecucion {
+        +String casoId
+        +EstadoEjecucion estado
+        +String version
+        +List evidencias
+        +String causaBloqueo
+    }
+
+    class GestorCampana {
+        +ejecutarCasos(List~CasoRegresionEjecutable~, ContextoEjecucion)
+    }
+
+    class GestorEvidencia {
+        +conservar(ResultadoEjecucion)
+    }
+
+    class GestorDefectos {
+        +procesar(ResultadoEjecucion)
+    }
+
+    CasoRegresionEjecutable <|.. CasoManual
+    CasoRegresionEjecutable <|.. CasoReprueba
+    GestorCampana --> CasoRegresionEjecutable : ejecuta
+    GestorCampana --> ContextoEjecucion : utiliza
+    CasoManual --> ResultadoEjecucion : devuelve
+    CasoReprueba --> ResultadoEjecucion : devuelve
+    ValidadorCaso --> CasoBorrador : valida
+    ValidadorCaso --> CasoManual : crea caso válido
+    GestorCampana --> GestorEvidencia : registra resultado
+    GestorCampana --> GestorDefectos : procesa fallos
+
+    note for CasoRegresionEjecutable "Toda implementación acepta el mismo contexto y devuelve ResultadoEjecucion"
+    note for CasoBorrador "No participa en campañas hasta ser validado"
