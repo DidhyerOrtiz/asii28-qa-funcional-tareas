@@ -24,12 +24,12 @@ una implementación existente.
 
 | ID | Categoría | Requisito | Medida verificable |
 |---|---|---|---|
-| RNF-01 | Privacidad | Toda documentación y evidencia académica debe utilizar datos ficticios y no identificables. | Ningún artefacto contiene nombres, expedientes, credenciales o datos clínicos reales. |
+| RNF-01 | Privacidad | Toda documentación y evidencia de prueba debe utilizar datos ficticios y no identificables. | Ningún artefacto de ejecución contiene nombres o identificadores de pacientes, expedientes, credenciales o datos clínicos reales. |
 | RNF-02 | Trazabilidad | Cada ejecución debe relacionar campaña, caso, requisito, versión, ambiente, tenant, rol y evidencia. | El registro contiene todos los identificadores aplicables y permite seguir la relación en ambos sentidos. |
 | RNF-03 | Reproducibilidad | Los pasos, precondiciones, datos y resultado esperado deben permitir repetir el caso en condiciones equivalentes. | Otro analista puede repetir el caso sin solicitar instrucciones que no estén documentadas. |
 | RNF-04 | Integridad | Ningún caso se considera aprobado, fallido o bloqueado sin un registro de ejecución y evidencia correspondiente. | El cierre rechaza conclusiones sin respaldo y separa los casos no ejecutados. |
 | RNF-05 | Seguridad | La ejecución debe respetar el tenant y el rol definidos y evitar exponer secretos en la evidencia. | La evidencia demuestra el contexto utilizado y no incluye tokens, contraseñas ni datos sensibles. |
-| RNF-06 | Mantenibilidad | Los tipos de caso ejecutables deben cumplir un contrato común y sustituirse sin cambiar el algoritmo de la campaña. | `GestorCampana` usa `CasoRegresionEjecutable` sin preguntar por clases concretas. |
+| RNF-06 | Mantenibilidad | Los tipos de caso ejecutables deben cumplir un contrato común y sustituirse sin cambiar el algoritmo de la campaña. | `GestorCampana.ejecutarCaso()` recibe `CasoRegresionEjecutable` sin preguntar por clases concretas. |
 | RNF-07 | Consistencia | Los estados permitidos son `Aprobado`, `Fallido`, `Bloqueado` y `No ejecutado`, con el significado establecido en semana 1. | No aparecen estados equivalentes con nombres incompatibles y cada estado respeta su regla. |
 | RNF-08 | Auditabilidad | La evidencia debe identificar fecha, ejecutor, versión y resultado observado, y permanecer accesible durante la revisión de la campaña. | El revisor puede consultar la evidencia desde el registro sin perder su contexto. |
 

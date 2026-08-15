@@ -72,14 +72,14 @@ php docs/asii-28/week-02/ejemplos/validar-sustitucion.php
 Resultado esperado:
 
 ```text
-Resultado: 7/7 validaciones superadas.
+Resultado: 15/15 validaciones superadas.
 ```
 
 Para volver a generar las imágenes con Mermaid CLI:
 
 ```bash
-npx --yes @mermaid-js/mermaid-cli -i docs/asii-28/week-02/diagramas/01-diseno-antes-lsp.mmd -o docs/asii-28/week-02/diagramas/imagenes/diseno-antes-lsp.png -b white -w 2000 -s 2
-npx --yes @mermaid-js/mermaid-cli -i docs/asii-28/week-02/diagramas/02-diseno-despues-lsp.mmd -o docs/asii-28/week-02/diagramas/imagenes/diseno-despues-lsp.png -b white -w 1800 -s 2
+npx --yes @mermaid-js/mermaid-cli@11.16.0 -i docs/asii-28/week-02/diagramas/01-diseno-antes-lsp.mmd -o docs/asii-28/week-02/diagramas/imagenes/diseno-antes-lsp.png -b white -w 2000 -s 2
+npx --yes @mermaid-js/mermaid-cli@11.16.0 -i docs/asii-28/week-02/diagramas/02-diseno-despues-lsp.mmd -o docs/asii-28/week-02/diagramas/imagenes/diseno-despues-lsp.png -b white -w 1800 -s 2
 ```
 
 ## Cumplimiento

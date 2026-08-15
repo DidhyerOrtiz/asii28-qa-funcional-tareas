@@ -5,26 +5,26 @@ classDiagram
         <<abstract>>
         +String id
         +String requisitoId
-        +ejecutar(ContextoEjecucion) ResultadoEjecucion
+        +ejecutar(ContextoEjecucion, ObservacionManual) ResultadoEjecucion
         +registrarEvidencia()
     }
 
     class CasoManual {
-        +ejecutar(ContextoEjecucion) ResultadoEjecucion
+        +ejecutar(ContextoEjecucion, ObservacionManual) ResultadoEjecucion
     }
 
     class CasoReprueba {
         +String defectoOrigen
-        +ejecutar(ContextoEjecucion) ResultadoEjecucion
+        +ejecutar(ContextoEjecucion, ObservacionManual) ResultadoEjecucion
     }
 
     class CasoBorrador {
         +Boolean completo
-        +ejecutar(ContextoEjecucion) ResultadoEjecucion
+        +ejecutar(ContextoEjecucion, ObservacionManual) ResultadoEjecucion
     }
 
     class GestorCampana {
-        +ejecutarCasos(List~CasoRegresion~, ContextoEjecucion)
+        +ejecutarCaso(CasoRegresion, ContextoEjecucion, ObservacionManual)
         +verificarTipo(CasoRegresion)
     }
 

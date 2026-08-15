@@ -48,14 +48,22 @@ php docs/asii-28/week-02/ejemplos/validar-sustitucion.php
 Resultado observado:
 
 ```text
-PASS: el gestor ejecuta ambas implementaciones
 PASS: CasoManual devuelve el contrato esperado
 PASS: CasoReprueba sustituye al caso ejecutable
 PASS: CasoManual conserva la versión
-PASS: CasoReprueba conserva la versión
+PASS: CasoReprueba conserva el tenant
+PASS: el resultado conserva el rol
+PASS: el resultado conserva el ejecutor
+PASS: la ejecución conserva evidencia
+PASS: el resultado proviene de la observación manual
+PASS: un nuevo tipo se ejecuta sin cambiar el gestor
 PASS: el borrador incompleto se identifica antes de ejecutar
 PASS: el borrador no implementa el contrato ejecutable
-Resultado: 7/7 validaciones superadas.
+PASS: el validador rechaza un borrador incompleto
+PASS: una observación sin evidencia se rechaza
+PASS: un contexto incompleto se rechaza
+PASS: el gestor rechaza un borrador por su parámetro tipado
+Resultado: 15/15 validaciones superadas.
 ```
 
 Resultado: **PASS**.
@@ -70,11 +78,13 @@ npm 11.6.2
 Mermaid CLI 11.16.0
 ```
 
-Comandos ejecutados:
+La versión se instaló en un directorio temporal aislado y se ejecutó su binario
+`mmdc.cmd` sobre las dos fuentes finales. Los comandos equivalentes documentados para
+el proyecto usan la versión fijada:
 
 ```bash
-npx --yes @mermaid-js/mermaid-cli -i docs/asii-28/week-02/diagramas/01-diseno-antes-lsp.mmd -o docs/asii-28/week-02/diagramas/imagenes/diseno-antes-lsp.png -b white -w 2000 -s 2
-npx --yes @mermaid-js/mermaid-cli -i docs/asii-28/week-02/diagramas/02-diseno-despues-lsp.mmd -o docs/asii-28/week-02/diagramas/imagenes/diseno-despues-lsp.png -b white -w 1800 -s 2
+npx --yes @mermaid-js/mermaid-cli@11.16.0 -i docs/asii-28/week-02/diagramas/01-diseno-antes-lsp.mmd -o docs/asii-28/week-02/diagramas/imagenes/diseno-antes-lsp.png -b white -w 2000 -s 2
+npx --yes @mermaid-js/mermaid-cli@11.16.0 -i docs/asii-28/week-02/diagramas/02-diseno-despues-lsp.mmd -o docs/asii-28/week-02/diagramas/imagenes/diseno-despues-lsp.png -b white -w 1800 -s 2
 ```
 
 Resultado observado:
@@ -82,8 +92,8 @@ Resultado observado:
 ```text
 Generating single mermaid chart
 Generating single mermaid chart
-diseno-antes-lsp.png: 143043 bytes
-diseno-despues-lsp.png: 293864 bytes
+diseno-antes-lsp.png: 134986 bytes
+diseno-despues-lsp.png: 242741 bytes
 ```
 
 Ambas imágenes se abrieron y revisaron visualmente. Los nombres, relaciones, notas y
@@ -103,7 +113,7 @@ git diff --name-status 7e22051..HEAD
 Resultado observado:
 
 - `git diff --check` no informó errores de espacios en blanco.
-- El listado mostró únicamente 12 archivos nuevos dentro de
+- El listado mostró únicamente 13 archivos dentro de
   `docs/asii-28/week-02/`.
 - No se modificaron documentos de otros módulos ni artefactos de semana 1.
 
@@ -139,4 +149,6 @@ Resultado: **PASS**.
 - No se adjuntan capturas de una UI porque semana 2 no implementa una interfaz.
 - El issue privado no pudo consultarse sin autenticación; la entrega se basó en
   `docs/weekly-plan.md`, el módulo asignado y la documentación existente de ASII-28.
+- Dos procesos `npx` paralelos colisionaron en la caché de npm; la validación final se
+  repitió correctamente con Mermaid CLI 11.16.0 instalado en un directorio temporal.
 - La publicación remota queda pendiente de autorización final del estudiante.

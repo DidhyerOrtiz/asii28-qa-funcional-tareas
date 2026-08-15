@@ -5,7 +5,7 @@ classDiagram
         <<interface>>
         +obtenerId() String
         +obtenerRequisitoId() String
-        +ejecutar(ContextoEjecucion) ResultadoEjecucion
+        +ejecutar(ContextoEjecucion, ObservacionManual) ResultadoEjecucion
     }
 
     class CasoManual {
@@ -13,7 +13,7 @@ classDiagram
         -String requisitoId
         -List pasos
         -String resultadoEsperado
-        +ejecutar(ContextoEjecucion) ResultadoEjecucion
+        +ejecutar(ContextoEjecucion, ObservacionManual) ResultadoEjecucion
     }
 
     class CasoReprueba {
@@ -21,7 +21,13 @@ classDiagram
         -String requisitoId
         -String defectoOrigen
         -CasoRegresionEjecutable casoOriginal
-        +ejecutar(ContextoEjecucion) ResultadoEjecucion
+        +ejecutar(ContextoEjecucion, ObservacionManual) ResultadoEjecucion
+    }
+
+    class CasoNegativoManual {
+        -String id
+        -String requisitoId
+        +ejecutar(ContextoEjecucion, ObservacionManual) ResultadoEjecucion
     }
 
     class CasoBorrador {
@@ -33,7 +39,7 @@ classDiagram
 
     class ValidadorCaso {
         +validar(CasoBorrador) Boolean
-        +convertir(CasoBorrador) CasoManual
+        +convertir(String, CasoBorrador) CasoManual
     }
 
     class ContextoEjecucion {
@@ -41,27 +47,46 @@ classDiagram
         +String ambiente
         +String tenant
         +String rol
+        +String ejecutor
+        +String fecha
+    }
+
+    class ObservacionManual {
+        +EstadoEjecucion estado
+        +String resultadoObservado
+        +List evidencias
+        +String causaBloqueo
     }
 
     class ResultadoEjecucion {
         +String casoId
+        +String requisitoId
         +EstadoEjecucion estado
         +String version
+        +String ambiente
+        +String tenant
+        +String rol
+        +String ejecutor
+        +String fecha
+        +String resultadoObservado
         +List evidencias
         +String causaBloqueo
     }
 
     class GestorCampana {
-        +ejecutarCasos(List~CasoRegresionEjecutable~, ContextoEjecucion)
+        +ejecutarCaso(CasoRegresionEjecutable, ContextoEjecucion, ObservacionManual) ResultadoEjecucion
     }
 
     CasoRegresionEjecutable <|.. CasoManual
     CasoRegresionEjecutable <|.. CasoReprueba
+    CasoRegresionEjecutable <|.. CasoNegativoManual
     GestorCampana --> CasoRegresionEjecutable : ejecuta
     GestorCampana --> ContextoEjecucion : utiliza
+    GestorCampana --> ObservacionManual : registra
     CasoManual --> ResultadoEjecucion : devuelve
     CasoReprueba --> ResultadoEjecucion : devuelve
+    CasoNegativoManual --> ResultadoEjecucion : devuelve
     ValidadorCaso --> CasoBorrador : valida
     ValidadorCaso --> CasoManual : crea caso válido
-    note for CasoRegresionEjecutable "Toda implementación acepta el mismo contexto y devuelve ResultadoEjecucion"
+    note for CasoRegresionEjecutable "Toda implementación acepta el mismo contexto y observación, y devuelve ResultadoEjecucion"
     note for CasoBorrador "No participa en campañas hasta ser validado"
