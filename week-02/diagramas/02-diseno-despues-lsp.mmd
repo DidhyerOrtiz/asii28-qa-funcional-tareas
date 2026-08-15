@@ -1,5 +1,5 @@
 classDiagram
-    direction LR
+    direction TB
 
     class CasoRegresionEjecutable {
         <<interface>>
@@ -55,14 +55,6 @@ classDiagram
         +ejecutarCasos(List~CasoRegresionEjecutable~, ContextoEjecucion)
     }
 
-    class GestorEvidencia {
-        +conservar(ResultadoEjecucion)
-    }
-
-    class GestorDefectos {
-        +procesar(ResultadoEjecucion)
-    }
-
     CasoRegresionEjecutable <|.. CasoManual
     CasoRegresionEjecutable <|.. CasoReprueba
     GestorCampana --> CasoRegresionEjecutable : ejecuta
@@ -71,8 +63,5 @@ classDiagram
     CasoReprueba --> ResultadoEjecucion : devuelve
     ValidadorCaso --> CasoBorrador : valida
     ValidadorCaso --> CasoManual : crea caso válido
-    GestorCampana --> GestorEvidencia : registra resultado
-    GestorCampana --> GestorDefectos : procesa fallos
-
     note for CasoRegresionEjecutable "Toda implementación acepta el mismo contexto y devuelve ResultadoEjecucion"
     note for CasoBorrador "No participa en campañas hasta ser validado"
