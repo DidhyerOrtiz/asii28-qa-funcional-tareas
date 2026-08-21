@@ -15,7 +15,7 @@ clínicas ni afirma que el diseño ya esté integrado en el HIS.
 |---|---|---|---|---|
 | VS-01 | Sustituir el contrato por `CasoManual` | Procesar contexto y observación válidos | Devuelve `ResultadoEjecucion`. | CA-06, CA-14 |
 | VS-02 | Sustituir el contrato por `CasoReprueba` | Procesarlo con el mismo método | Devuelve el mismo tipo sin cambiar el gestor. | CA-14 |
-| VS-03 | Conservar el contexto | Procesar ambas implementaciones | Los resultados mantienen campaña, versión, tenant, rol y ejecutor. | CA-17 |
+| VS-03 | Conservar el contexto | Procesar ambas implementaciones | Los resultados mantienen campaña, versión, tenant, rol, ejecutor y datos ficticios. | CA-17 |
 | VS-04 | Conservar la observación | Registrar resultado y evidencia manual | El resultado reproduce lo observado, sin inventar una aprobación. | CA-06, CA-19 |
 | VS-05 | Incorporar un borrador incompleto | Pasarlo al método tipado | PHP lo rechaza porque no implementa el contrato. | CA-02, CA-16 |
 | VS-06 | Agregar `CasoNegativoManual` | Implementar y procesar el mismo contrato | El gestor obtiene el estado `Fallido` sin modificaciones. | CA-15 |
@@ -35,7 +35,7 @@ php -l docs/asii-28/week-02/ejemplos/validar-sustitucion.php
 php docs/asii-28/week-02/ejemplos/validar-sustitucion.php
 ```
 
-Resultado observado el 15 de agosto de 2026:
+Resultado observado nuevamente el 21 de agosto de 2026:
 
 ```text
 No syntax errors detected in docs/asii-28/week-02/ejemplos/validar-sustitucion.php
@@ -46,8 +46,10 @@ PASS: el resultado conserva la campaña
 PASS: CasoReprueba conserva el tenant
 PASS: la re-prueba conserva el defecto
 PASS: la re-prueba conserva el caso original
+PASS: la re-prueba conserva el requisito original
 PASS: el resultado conserva el rol
 PASS: el resultado conserva el ejecutor
+PASS: la ejecución conserva los datos ficticios
 PASS: la ejecución conserva evidencia
 PASS: el resultado proviene de la observación manual
 PASS: un nuevo tipo se ejecuta sin cambiar el gestor
@@ -55,9 +57,9 @@ PASS: el borrador incompleto se identifica antes de ejecutar
 PASS: el borrador no implementa el contrato ejecutable
 PASS: el validador rechaza un borrador incompleto
 PASS: una observación sin evidencia se rechaza
-PASS: un contexto incompleto se rechaza
+PASS: un contexto sin datos de prueba se rechaza
 PASS: el gestor rechaza un borrador por su parámetro tipado
-Resultado: 18/18 validaciones superadas.
+Resultado: 20/20 validaciones superadas.
 ```
 
 ## 4. Interpretación
@@ -67,11 +69,11 @@ La demostración cumple el contrato observable porque:
 - el gestor recibe cada caso mediante un parámetro tipado por la interfaz;
 - no contiene `instanceof`, `switch` ni condiciones por tipo de caso;
 - las implementaciones aceptan el mismo contexto y observación manual;
-- los resultados conservan contexto, resultado observado y evidencia;
+- los resultados conservan contexto, datos ficticios, resultado observado y evidencia;
 - `CasoNegativoManual` extiende el diseño sin modificar el gestor;
 - el método tipado rechaza un borrador en tiempo de ejecución;
 - `ValidadorCaso` convierte únicamente borradores completos;
-- el contexto incompleto y las observaciones sin evidencia se rechazan.
+- el contexto sin datos de prueba y las observaciones sin evidencia se rechazan.
 
 ## 5. Limitaciones
 

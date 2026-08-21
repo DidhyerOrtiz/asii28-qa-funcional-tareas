@@ -18,8 +18,8 @@ obtener un trato especial dentro de `GestorCampana`.
 ### 1.2 Precondiciones
 
 - El caso fue validado y tiene identificador, requisito, pasos y resultado esperado.
-- `ContextoEjecucion` identifica campaña, versión, ambiente, tenant, rol, ejecutor y
-  fecha.
+- `ContextoEjecucion` identifica campaña, versión, ambiente, tenant, rol, ejecutor,
+  datos ficticios utilizados y fecha.
 - `ObservacionManual` contiene estado, resultado observado y evidencia.
 - Los datos requeridos por el caso son ficticios y están disponibles.
 - El rol indicado tiene autorización para el escenario evaluado.
@@ -34,7 +34,7 @@ implementaciones.
 
 - La operación devuelve un `ResultadoEjecucion` no nulo.
 - El resultado conserva campaña, caso, requisito, versión, ambiente, tenant, rol,
-  ejecutor y fecha.
+  ejecutor, datos ficticios utilizados y fecha.
 - El estado pertenece a `Aprobado`, `Fallido` o `Bloqueado` cuando hubo intento de
   ejecución; `No ejecutado` se asigna por planificación, sin invocar `ejecutar()`.
 - Un resultado `Fallido` contiene resultado observado y referencias de evidencia.
@@ -52,6 +52,16 @@ implementaciones.
 - Un fallo solo genera un defecto confirmado cuando puede reproducirse.
 - `GestorCampana` no depende de clases concretas de casos.
 
+### 1.5 Límite de autorización
+
+- Transportar tenant y rol no equivale a autorizar una operación.
+- La API deberá rechazar tenant ausente o distinto al autorizado antes de consultar
+  información QA.
+- La autorización RBAC deberá comprobar el permiso de la operación antes de delegar en
+  los servicios del módulo.
+- Estos controles son criterios del diseño; el ejemplo LSP no sustituye las futuras
+  pruebas de seguridad de la integración Laravel.
+
 ## 2. Responsabilidades
 
 | Elemento | Responsabilidad | No debe hacer |
@@ -62,7 +72,7 @@ implementaciones.
 | `CasoNegativoManual` | Demostrar que una nueva variante válida puede usar el mismo contrato. | Exigir cambios o condiciones especiales en el gestor. |
 | `CasoBorrador` | Conservar información en preparación y permitir comprobar si está completa. | Implementar el contrato ejecutable antes de ser validado. |
 | `ValidadorCaso` | Validar el borrador y convertirlo en un caso manual completo. | Ejecutar campañas o registrar evidencias. |
-| `ContextoEjecucion` | Transportar campaña, versión, ambiente, tenant, rol, ejecutor y fecha. | Decidir el resultado del caso. |
+| `ContextoEjecucion` | Transportar campaña, versión, ambiente, tenant, rol, ejecutor, datos ficticios y fecha. | Decidir el resultado del caso o autorizar por sí mismo. |
 | `ObservacionManual` | Transportar el estado, resultado observado, evidencia y causa de bloqueo registrados por QA. | Inventar datos del contexto. |
 | `ResultadoEjecucion` | Consolidar el caso, contexto y observación de forma trazable. | Ejecutar pasos o crear defectos por sí mismo. |
 | `GestorCampana` | Procesar un caso a través del contrato tipado y devolver su resultado. | Preguntar si un objeto es `CasoManual`, `CasoReprueba` o `CasoBorrador`. |
@@ -84,8 +94,8 @@ GestorCampana --> ContextoEjecucion
 GestorCampana --> ObservacionManual
 CasoManual ----> ResultadoEjecucion
 CasoReprueba --> ResultadoEjecucion
-GestorCampana --> GestorEvidencia
-GestorCampana --> GestorDefectos
+GestorCampana -.-> GestorEvidencia  [colaborador propuesto]
+GestorCampana -.-> GestorDefectos  [colaborador propuesto]
 ValidadorCaso --> CasoBorrador
 ValidadorCaso --> CasoManual
 ```

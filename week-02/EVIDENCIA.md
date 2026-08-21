@@ -1,6 +1,6 @@
 # ASII-28 - Evidencia de semana 2
 
-Fecha de validación: 15 de agosto de 2026.
+Fecha de validación actualizada: 21 de agosto de 2026.
 
 Todos los comandos se ejecutaron desde la raíz del worktree local en la rama
 `feature/asii-28-qa-funcional-didhyerortiz`. No se realizó `push` ni se creó un PR.
@@ -13,7 +13,7 @@ Comando:
 php --version
 ```
 
-Resultado observado:
+Estado observado:
 
 ```text
 PHP 8.3.31 (cli)
@@ -55,8 +55,10 @@ PASS: el resultado conserva la campaña
 PASS: CasoReprueba conserva el tenant
 PASS: la re-prueba conserva el defecto
 PASS: la re-prueba conserva el caso original
+PASS: la re-prueba conserva el requisito original
 PASS: el resultado conserva el rol
 PASS: el resultado conserva el ejecutor
+PASS: la ejecución conserva los datos ficticios
 PASS: la ejecución conserva evidencia
 PASS: el resultado proviene de la observación manual
 PASS: un nuevo tipo se ejecuta sin cambiar el gestor
@@ -64,9 +66,9 @@ PASS: el borrador incompleto se identifica antes de ejecutar
 PASS: el borrador no implementa el contrato ejecutable
 PASS: el validador rechaza un borrador incompleto
 PASS: una observación sin evidencia se rechaza
-PASS: un contexto incompleto se rechaza
+PASS: un contexto sin datos de prueba se rechaza
 PASS: el gestor rechaza un borrador por su parámetro tipado
-Resultado: 18/18 validaciones superadas.
+Resultado: 20/20 validaciones superadas.
 ```
 
 Resultado: **PASS**.
@@ -81,26 +83,23 @@ npm 11.6.2
 Mermaid CLI 11.16.0
 ```
 
-La versión se instaló en un directorio temporal aislado y se ejecutó su binario
-`mmdc.cmd` sobre las dos fuentes finales. Los comandos equivalentes documentados para
-el proyecto usan la versión fijada:
+Las fuentes se conservaron editables. El diseño mejorado se renderizó manualmente
+después de actualizar los datos de prueba y la relación con el requisito original:
 
-```bash
-npx --yes @mermaid-js/mermaid-cli@11.16.0 -i docs/asii-28/week-02/diagramas/01-diseno-antes-lsp.mmd -o docs/asii-28/week-02/diagramas/imagenes/diseno-antes-lsp.png -b white -w 2000 -s 2
-npx --yes @mermaid-js/mermaid-cli@11.16.0 -i docs/asii-28/week-02/diagramas/02-diseno-despues-lsp.mmd -o docs/asii-28/week-02/diagramas/imagenes/diseno-despues-lsp.png -b white -w 1800 -s 2
+```text
+diagramas/01-diseno-antes-lsp.mmd
+diagramas/02-diseno-despues-lsp.mmd
 ```
 
 Resultado observado:
 
 ```text
-Generating single mermaid chart
-Generating single mermaid chart
-diseno-antes-lsp.png: 134986 bytes
-diseno-despues-lsp.png: 253228 bytes
+diseno-antes-lsp.png: 134986 bytes - PASS
+diseno-despues-lsp.png: 1485256 bytes - PASS
 ```
 
-Ambas imágenes se abrieron y revisaron visualmente. Los nombres, relaciones, notas y
-contratos corresponden con sus fuentes `.mmd`.
+Ambos PNG se abrieron y revisaron visualmente. El diseño mejorado incluye los datos de
+prueba y la conservación del requisito original mediante `casoOriginal`.
 
 Resultado: **PASS**.
 

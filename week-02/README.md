@@ -19,6 +19,7 @@ implementación funcional ya integrada en el HIS.
 
 - Definir requisitos funcionales y no funcionales del proceso manual de QA.
 - Especificar criterios de aceptación trazables con los casos de uso de semana 1.
+- Definir el mantenimiento versionado de la matriz de regresión y su priorización.
 - Mostrar una violación de LSP y su corrección mediante un diseño antes/después.
 - Establecer el contrato común de los casos ejecutables.
 - Conservar fuentes Mermaid editables y evidencia de validación local.
@@ -72,14 +73,15 @@ php docs/asii-28/week-02/ejemplos/validar-sustitucion.php
 Resultado esperado:
 
 ```text
-Resultado: 18/18 validaciones superadas.
+Resultado: 20/20 validaciones superadas.
 ```
 
-Para volver a generar las imágenes con Mermaid CLI:
+Las fuentes se conservan editables para validarlas y renderizarlas manualmente en un
+editor compatible con Mermaid. Los PNG deben guardarse como:
 
-```bash
-npx --yes @mermaid-js/mermaid-cli@11.16.0 -i docs/asii-28/week-02/diagramas/01-diseno-antes-lsp.mmd -o docs/asii-28/week-02/diagramas/imagenes/diseno-antes-lsp.png -b white -w 2000 -s 2
-npx --yes @mermaid-js/mermaid-cli@11.16.0 -i docs/asii-28/week-02/diagramas/02-diseno-despues-lsp.mmd -o docs/asii-28/week-02/diagramas/imagenes/diseno-despues-lsp.png -b white -w 1800 -s 2
+```text
+diagramas/imagenes/diseno-antes-lsp.png
+diagramas/imagenes/diseno-despues-lsp.png
 ```
 
 ## Cumplimiento

@@ -18,9 +18,9 @@ classDiagram
 
     class CasoReprueba {
         -String id
-        -String requisitoId
         -String defectoOrigen
         -CasoRegresionEjecutable casoOriginal
+        +obtenerRequisitoId() String
         +ejecutar(ContextoEjecucion, ObservacionManual) ResultadoEjecucion
     }
 
@@ -51,6 +51,7 @@ classDiagram
         +String tenant
         +String rol
         +String ejecutor
+        +List datosPrueba
         +String fecha
     }
 
@@ -71,6 +72,7 @@ classDiagram
         +String tenant
         +String rol
         +String ejecutor
+        +List datosPrueba
         +String fecha
         +String resultadoObservado
         +List evidencias
@@ -95,4 +97,5 @@ classDiagram
     ValidadorCaso --> CasoBorrador : valida
     ValidadorCaso --> CasoManual : crea caso válido
     note for CasoRegresionEjecutable "Toda implementación acepta el mismo contexto y observación, y devuelve ResultadoEjecucion"
+    note for CasoReprueba "Conserva el requisito mediante casoOriginal"
     note for CasoBorrador "No participa en campañas hasta ser validado"
