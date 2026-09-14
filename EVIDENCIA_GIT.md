@@ -1,4 +1,4 @@
-# Evidencia Git - avances de semanas 1 y 2
+# Evidencia Git - avances de semanas 1, 2 y 4
 
 ## Repositorio personal
 
@@ -14,11 +14,11 @@
 |---|---|---|---|
 | Semana 1 | [`feature/week-01-uml`](https://github.com/DidhyerOrtiz/asii28-qa-funcional-tareas/tree/feature/week-01-uml) | `semana-1-entrega` | Alcance, actores, casos de uso y tres diagramas UML |
 | Semana 2 | [`feature/week-02-solid`](https://github.com/DidhyerOrtiz/asii28-qa-funcional-tareas/tree/feature/week-02-solid) | `semana-2-entrega` | RF/RNF, criterios, LSP, diagramas, PHP y evidencia |
+| Semana 4 | [`feature/week-04-repository`](https://github.com/DidhyerOrtiz/asii28-qa-funcional-tareas/tree/feature/week-04-repository) | `semana-4-entrega` | Repository, PostgreSQL, regresion, seis diagramas e informe DOCX/PDF |
 
-El historial de ambas semanas fue exportado conservando la autoria, fechas y
-commits academicos originales. El repositorio personal excluye el codigo del HIS
-y los artefactos de semanas posteriores; contiene unicamente la evidencia que se
-solicita compartir publicamente.
+El repositorio personal excluye el codigo fuente del HIS y contiene la evidencia
+academica que se solicita compartir publicamente. La implementacion completa de la
+semana 4 permanece en el repositorio colaborativo mediante el PR correspondiente.
 
 ## Trazabilidad con el proyecto colaborativo
 
@@ -27,6 +27,7 @@ solicita compartir publicamente.
 | Seguimiento personal | [Issue #28](https://github.com/compilations-teams/sistema-hospitalario-integrado-SistenasII-2026/issues/28) | Semanas documentadas mediante comentarios |
 | Integracion semana 1 | [PR #45](https://github.com/compilations-teams/sistema-hospitalario-integrado-SistenasII-2026/pull/45) | Fusionado |
 | Integracion semana 2 | [PR #54](https://github.com/compilations-teams/sistema-hospitalario-integrado-SistenasII-2026/pull/54) | Pendiente de revision |
+| Integracion semana 4 | [PR #63](https://github.com/compilations-teams/sistema-hospitalario-integrado-SistenasII-2026/pull/63) | Listo para revision |
 
 Los pull requests pertenecen al repositorio colaborativo. Este repositorio
 personal funciona como evidencia publica e independiente para la entrega en

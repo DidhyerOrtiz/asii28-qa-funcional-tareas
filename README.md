@@ -2,7 +2,7 @@
 
 Repositorio personal publico de **Didhyer Alexander Ortiz Guevara**
 ([`DidhyerOrtiz`](https://github.com/DidhyerOrtiz)) para documentar los avances de
-las semanas 1 y 2 de Analisis de Sistemas II.
+las semanas 1, 2 y 4 de Analisis de Sistemas II.
 
 **Modulo asignado:** ASII-28 - QA funcional, pruebas manuales y matriz de
 regresion.
@@ -13,6 +13,7 @@ regresion.
 |---|---|---|---|
 | 1 | Diagnostico, actores, limites, procesos y diagramas UML | [`week-01/`](week-01/) | [`feature/week-01-uml`](../../tree/feature/week-01-uml) |
 | 2 | RF/RNF, criterios de aceptacion y aplicacion de LSP | [`week-02/`](week-02/) | [`feature/week-02-solid`](../../tree/feature/week-02-solid) |
+| 4 | Arquitectura Repository, implementacion QA, regresion e informe final | [`week-04/`](week-04/) | [`feature/week-04-repository`](../../tree/feature/week-04-repository) |
 
 ## Modelo de ramas
 
@@ -24,6 +25,7 @@ main
 └── developer
     ├── feature/week-01-uml
     ├── feature/week-02-solid
+    ├── feature/week-04-repository
     └── feature/repository-evidence
 ```
 
@@ -33,11 +35,13 @@ flowchart TB
     DEV[developer: integracion]
     W1[feature/week-01-uml]
     W2[feature/week-02-solid]
+    W4[feature/week-04-repository]
     EVI[feature/repository-evidence]
 
     MAIN --> DEV
     DEV --> W1
     DEV --> W2
+    DEV --> W4
     DEV --> EVI
 ```
 
@@ -46,6 +50,7 @@ el repositorio colaborativo. Las etiquetas de entrega son:
 
 - `semana-1-entrega`
 - `semana-2-entrega`
+- `semana-4-entrega`
 
 La trazabilidad de ramas, commits y contribuciones al proyecto se encuentra en
 [`EVIDENCIA_GIT.md`](EVIDENCIA_GIT.md).
@@ -76,6 +81,19 @@ una violacion del principio de sustitucion de Liskov (LSP).
 - [Contratos y responsabilidades](week-02/04-contratos-responsabilidades.md)
 - [Evidencia de validacion](week-02/EVIDENCIA.md)
 - [Declaracion de uso de IA](week-02/DECLARACION_IA.md)
+
+## Semana 4
+
+La cuarta semana entrega el vertical Repository del Modulo 29 con arquitectura por
+capas, contrato API, persistencia PostgreSQL, matriz de regresion, evidencia
+reproducible y seis diagramas finales.
+
+- [Indice de semana 4](week-04/README.md)
+- [Informe final en PDF](week-04/informe-tarea-repository.pdf)
+- [Informe editable en DOCX](week-04/informe-tarea-repository.docx)
+- [Matriz de regresion](week-04/MATRIZ_REGRESION.md)
+- [Evidencia reproducible](week-04/EVIDENCIA.md)
+- [PR colaborativo #63](https://github.com/compilations-teams/sistema-hospitalario-integrado-SistenasII-2026/pull/63)
 
 ## Validacion rapida
 

@@ -1,0 +1,62 @@
+%% Modulo 29 - POST /api/v1/qa/defects/{defect}/retests
+sequenceDiagram
+    autonumber
+    actor DEV as Responsable del modulo
+    actor QA as Analista QA
+    participant MW as tenant + JWT + permiso
+    participant CTRL as QaRegressionController
+    participant APP as ManageQaRegression
+    participant REPO as QaRegressionRepository
+    participant DB as PostgreSQL HOSPITAL
+    participant HIS as HIS bajo prueba
+
+    DEV-->>QA: Comunicar fixed_version
+    QA->>HIS: Repetir manualmente el caso corregido
+    HIS-->>QA: Resultado observado
+    QA->>MW: POST /api/v1/qa/defects/{defect}/retests
+    Note right of QA: fixed_version, status, actual_result y evidence
+    MW->>MW: Validar tenant, jwt.auth y qa.regression.manage
+    MW->>CTRL: Payload validado por RetestDefectRequest
+    CTRL->>APP: retest(RetestDefectCommand)
+    APP->>APP: Autorizar qa.regression.manage y hospital
+    APP->>REPO: findDefect(defect, hospitalId)
+    REPO->>DB: SELECT qa_defects por hospital_id
+    DB-->>REPO: Defect OPEN, REOPENED o CLOSED
+    REPO-->>APP: Defect
+    APP->>REPO: findExecution(initialExecutionId, hospitalId)
+    REPO->>DB: SELECT ejecucion inicial y evidencia
+    DB-->>REPO: TestExecution inicial
+    REPO-->>APP: TestExecution
+    APP->>APP: Crear nueva TestExecution y Evidence
+    APP->>APP: registerRetest(status, fixed_version)
+
+    alt defecto ya CLOSED
+        APP-->>CTRL: Conflicto
+        CTRL-->>QA: 409 Conflict
+    else defecto OPEN o REOPENED
+        APP->>REPO: recordRetest(execution, defect)
+        REPO->>DB: BEGIN y SELECT defecto FOR UPDATE
+
+        alt defecto cerrado concurrentemente
+            REPO->>DB: ROLLBACK
+            REPO-->>APP: QaConflictException
+            APP-->>CTRL: Conflicto
+            CTRL-->>QA: 409 Conflict
+        else status es PASSED
+            REPO->>DB: INSERT ejecucion y evidencia
+            REPO->>DB: UPDATE defecto CLOSED, fixed_version, closed_at
+            REPO->>DB: COMMIT
+            REPO-->>APP: Re-prueba confirmada
+            APP-->>CTRL: execution + defect CLOSED
+            CTRL-->>QA: 201 Created
+        else status es FAILED o BLOCKED
+            REPO->>DB: INSERT ejecucion y evidencia
+            REPO->>DB: UPDATE defecto REOPENED, fixed_version, closed_at null
+            REPO->>DB: COMMIT
+            REPO-->>APP: Re-prueba confirmada
+            APP-->>CTRL: execution + defect REOPENED
+            CTRL-->>QA: 201 Created
+        end
+    end
+
+    Note over APP,DB: fixed_version se registra dentro de la re-prueba, no hay endpoint separado
