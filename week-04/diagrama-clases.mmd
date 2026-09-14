@@ -1,0 +1,108 @@
+%% Modulo 29 - Clases reales del MVP
+classDiagram
+    direction LR
+
+    class TestCase {
+        +string id
+        +string hospitalId
+        +TargetScope targetScope
+        +string requirementRef
+        +string acceptanceCriterionRef
+        +string title
+        +string? preconditions
+        +list~string~ steps
+        +string expectedResult
+        +int createdBy
+        +toArray()
+    }
+
+    class RegressionCampaign {
+        +string id
+        +string hospitalId
+        +string name
+        +string targetVersion
+        +list~string~ testCaseIds
+        +int createdBy
+        +contains(testCaseId)
+        +toArray()
+    }
+
+    class Evidence {
+        +string id
+        +string path
+        +string checksum
+        +map metadata
+        +toArray()
+    }
+
+    class TestExecution {
+        +string id
+        +string hospitalId
+        +string campaignId
+        +string testCaseId
+        +ExecutionStatus status
+        +string actualResult
+        +int executedBy
+        +Evidence evidence
+        +string? retestOfExecutionId
+        +string? defectId
+        +toArray()
+    }
+
+    class Defect {
+        +string id
+        +string hospitalId
+        +string initialExecutionId
+        +string reproductionSteps
+        +string evidencePath
+        +string evidenceChecksum
+        +map evidenceMetadata
+        +DefectSeverity severity
+        -DefectStatus status
+        +string detectedVersion
+        -string? fixedVersion
+        -string? closedAt
+        +fromFailedExecution()
+        +registerRetest()
+    }
+
+    class ManageQaRegression {
+        +createTestCase(command)
+        +createCampaign(command)
+        +recordExecution(command)
+        +retest(command)
+        +matrix(campaignId, hospitalId, userId)
+    }
+
+    class QaRegressionRepository {
+        <<interface>>
+        +saveTestCase(TestCase)
+        +findTestCase(id, hospitalId)
+        +saveCampaign(RegressionCampaign)
+        +findCampaign(id, hospitalId)
+        +recordExecution(TestExecution, Defect?)
+        +findExecution(id, hospitalId)
+        +findDefect(id, hospitalId)
+        +recordRetest(TestExecution, Defect)
+        +campaignMatrix(campaignId, hospitalId)
+    }
+
+    class InMemoryQaRegressionRepository
+    class EloquentQaRegressionRepository
+
+    RegressionCampaign "1" --> "1..*" TestCase : testCaseIds
+    TestExecution "1" *-- "1" Evidence : evidence
+    TestExecution "1" --> "0..1" Defect : crea si FAILED
+    Defect "1" --> "1" TestExecution : initialExecutionId
+    Defect "1" --> "0..*" TestExecution : re-pruebas
+    ManageQaRegression --> TestCase
+    ManageQaRegression --> RegressionCampaign
+    ManageQaRegression --> TestExecution
+    ManageQaRegression --> Defect
+    ManageQaRegression --> QaRegressionRepository
+    InMemoryQaRegressionRepository ..|> QaRegressionRepository
+    EloquentQaRegressionRepository ..|> QaRegressionRepository
+
+    note for TestCase "Sin code, version, priority ni test_data"
+    note for TestExecution "Sin snapshot ni executed_version"
+    note for Defect "Estados: OPEN, REOPENED, CLOSED"

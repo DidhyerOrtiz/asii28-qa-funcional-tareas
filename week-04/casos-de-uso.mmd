@@ -1,0 +1,36 @@
+%% Modulo 29 - Casos de uso del MVP entregado
+flowchart LR
+    QA((Analista QA))
+    REV((Revisor con permiso))
+    DEV((Responsable del modulo))
+    HIS((HIS bajo prueba))
+
+    subgraph API["Modulo 29 - cinco rutas /api/v1/qa"]
+        direction TB
+        CU1(["POST /api/v1/qa/test-cases<br/>Crear TestCase trazable"])
+        CU2(["POST /api/v1/qa/campaigns<br/>Crear RegressionCampaign"])
+        CU3(["POST /api/v1/qa/campaigns/{campaign}/executions<br/>Registrar TestExecution y Evidence"])
+        CU4(["POST /api/v1/qa/defects/{defect}/retests<br/>Registrar fixed_version y re-prueba"])
+        CU5(["GET /api/v1/qa/campaigns/{campaign}/matrix<br/>Consultar matriz"])
+    end
+
+    QA --- CU1
+    QA --- CU2
+    QA --- CU3
+    QA --- CU4
+    QA --- CU5
+    REV --- CU5
+    DEV -. comunica fixed_version a QA .-> CU4
+    QA -->|ejecuta pasos manualmente| HIS
+    HIS -->|resultado observado| QA
+
+    CU3 -. si status es FAILED crea Defect OPEN .-> CU5
+    CU4 -. PASSED cierra; FAILED o BLOCKED reabre .-> CU5
+
+    AUTH["tenant + jwt.auth<br/>qa.regression.manage"]
+    AUTH --- API
+    LOCAL["Persistencia QA HOSPITAL-local<br/>target_scope CENTRAL o HOSPITAL"]
+    API --- LOCAL
+
+    style API fill:#f3f8ff,stroke:#24527a,stroke-width:2px
+    style LOCAL fill:#fff8e8,stroke:#8a6419

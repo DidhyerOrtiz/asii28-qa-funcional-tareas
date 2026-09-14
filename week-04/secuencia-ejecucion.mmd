@@ -1,0 +1,48 @@
+%% Modulo 29 - POST /api/v1/qa/campaigns/{campaign}/executions
+sequenceDiagram
+    autonumber
+    actor QA as Analista QA
+    participant MW as tenant + JWT + permiso
+    participant CTRL as QaRegressionController
+    participant APP as ManageQaRegression
+    participant REPO as QaRegressionRepository
+    participant DB as PostgreSQL HOSPITAL
+
+    QA->>MW: POST /api/v1/qa/campaigns/{campaign}/executions
+    MW->>MW: Validar tenant, jwt.auth y qa.regression.manage
+    MW->>CTRL: Payload validado por RecordExecutionRequest
+    CTRL->>APP: recordExecution(RecordExecutionCommand)
+    APP->>APP: Autorizar usuario y hospital
+    APP->>REPO: findCampaign(campaign, hospitalId)
+    REPO->>DB: Buscar campana y casos por hospital_id
+    DB-->>REPO: RegressionCampaign
+    REPO-->>APP: Campana con testCaseIds
+    APP->>APP: Verificar test_case_id asociado
+    APP->>APP: Crear Evidence y TestExecution
+
+    alt status es FAILED
+        APP->>APP: Validar reproduction_steps, severity y detected_version
+        APP->>APP: Defect.fromFailedExecution() con estado OPEN
+        APP->>REPO: recordExecution(execution, defect)
+        REPO->>DB: BEGIN
+        REPO->>DB: INSERT qa_defects
+        REPO->>DB: INSERT qa_test_executions
+        REPO->>DB: INSERT qa_evidences
+        REPO->>DB: COMMIT
+        DB-->>REPO: Ejecucion, evidencia y defecto confirmados
+        REPO-->>APP: Operacion completada
+        APP-->>CTRL: execution + defect
+    else status es PASSED o BLOCKED
+        APP->>REPO: recordExecution(execution, null)
+        REPO->>DB: BEGIN
+        REPO->>DB: INSERT qa_test_executions
+        REPO->>DB: INSERT qa_evidences
+        REPO->>DB: COMMIT
+        DB-->>REPO: Ejecucion y evidencia confirmadas
+        REPO-->>APP: Operacion completada
+        APP-->>CTRL: execution + defect null
+    end
+
+    CTRL-->>QA: 201 Created
+    Note over APP,DB: La evidencia es una referencia validada, no se abre ni se recalcula su hash
+    Note over APP,DB: CENTRAL no participa en la transaccion HOSPITAL-local
