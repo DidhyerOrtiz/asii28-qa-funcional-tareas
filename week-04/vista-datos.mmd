@@ -1,0 +1,102 @@
+%% Modulo 29 - Esquema real de la migracion PostgreSQL
+erDiagram
+    TENANTS {
+        string id PK
+    }
+
+    USERS {
+        bigint id PK
+    }
+
+    QA_TEST_CASES {
+        uuid id PK
+        string hospital_id FK
+        string target_scope
+        string requirement_ref
+        string acceptance_criterion_ref
+        string title
+        text preconditions "nullable"
+        json steps
+        text expected_result
+        bigint created_by FK
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    QA_REGRESSION_CAMPAIGNS {
+        uuid id PK
+        string hospital_id FK
+        string name
+        string target_version
+        bigint created_by FK
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    QA_CAMPAIGN_CASES {
+        string hospital_id PK, FK
+        uuid campaign_id PK, FK
+        uuid test_case_id PK, FK
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    QA_TEST_EXECUTIONS {
+        uuid id PK
+        string hospital_id FK
+        uuid campaign_id FK
+        uuid test_case_id FK
+        string status
+        text actual_result
+        bigint executed_by FK
+        uuid retest_of_execution_id FK "nullable"
+        uuid defect_id FK "nullable, compuesta con hospital_id"
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    QA_EVIDENCES {
+        uuid id PK
+        string hospital_id FK
+        uuid execution_id FK
+        string path
+        string checksum
+        json metadata
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    QA_DEFECTS {
+        uuid id PK
+        string hospital_id FK
+        uuid initial_execution_id "referencia logica unica"
+        text reproduction_steps
+        string evidence_path
+        string evidence_checksum
+        json evidence_metadata
+        string severity
+        string status
+        string detected_version
+        string fixed_version "nullable"
+        timestamp closed_at "nullable"
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    TENANTS ||--o{ QA_TEST_CASES : "hospital local"
+    TENANTS ||--o{ QA_REGRESSION_CAMPAIGNS : "hospital local"
+    TENANTS ||--o{ QA_CAMPAIGN_CASES : "hospital local"
+    TENANTS ||--o{ QA_TEST_EXECUTIONS : "hospital local"
+    TENANTS ||--o{ QA_EVIDENCES : "hospital local"
+    TENANTS ||--o{ QA_DEFECTS : "hospital local"
+    USERS ||--o{ QA_TEST_CASES : "crea"
+    USERS ||--o{ QA_REGRESSION_CAMPAIGNS : "crea"
+    USERS ||--o{ QA_TEST_EXECUTIONS : "ejecuta"
+    QA_REGRESSION_CAMPAIGNS ||--|{ QA_CAMPAIGN_CASES : "incluye"
+    QA_TEST_CASES ||--o{ QA_CAMPAIGN_CASES : "se selecciona"
+    QA_REGRESSION_CAMPAIGNS ||--o{ QA_TEST_EXECUTIONS : "agrupa"
+    QA_TEST_CASES ||--o{ QA_TEST_EXECUTIONS : "se ejecuta"
+    QA_TEST_EXECUTIONS ||--o| QA_EVIDENCES : "tiene"
+    QA_TEST_EXECUTIONS ||--o| QA_DEFECTS : "origina, enlace logico"
+    QA_DEFECTS o|--o{ QA_TEST_EXECUTIONS : "defect_id, FK fisica"
+    QA_TEST_EXECUTIONS o|--o{ QA_TEST_EXECUTIONS : "retest_of_execution_id"
