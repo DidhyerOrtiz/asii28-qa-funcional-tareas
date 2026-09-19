@@ -1,0 +1,19 @@
+flowchart TD
+    START([Analista abre QA]) --> CONTEXT[Confirmar hospital y version]
+    CONTEXT --> CAMPAIGN[Seleccionar campana]
+    CAMPAIGN --> CASE[Revisar siguiente caso]
+    CASE --> MANUAL[Ejecutar pasos manualmente]
+    MANUAL --> STATUS{Resultado}
+    STATUS -->|PASSED| EVIDENCE[Agregar evidencia saneada]
+    STATUS -->|BLOCKED| BLOCK[Explicar bloqueo]
+    STATUS -->|FAILED| DEFECT[Agregar reproduccion severidad y version]
+    BLOCK --> EVIDENCE
+    DEFECT --> EVIDENCE
+    EVIDENCE --> VALID{Datos validos}
+    VALID -->|No| FORM[Mostrar errores y conservar datos]
+    FORM --> EVIDENCE
+    VALID -->|Si| SAVE[Registrar resultado]
+    SAVE --> MORE{Quedan casos}
+    MORE -->|Si| CASE
+    MORE -->|No| MATRIX[Consultar matriz y defectos]
+    MATRIX --> END([Campana revisable])
