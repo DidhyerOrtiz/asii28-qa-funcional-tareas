@@ -1,4 +1,4 @@
-# Evidencia Git - avances de semanas 1, 2 y 4
+# Evidencia Git - avances de semanas 1, 2, 4, 5 y 6
 
 ## Repositorio personal
 
@@ -15,6 +15,8 @@
 | Semana 1 | [`feature/week-01-uml`](https://github.com/DidhyerOrtiz/asii28-qa-funcional-tareas/tree/feature/week-01-uml) | `semana-1-entrega` | Alcance, actores, casos de uso y tres diagramas UML |
 | Semana 2 | [`feature/week-02-solid`](https://github.com/DidhyerOrtiz/asii28-qa-funcional-tareas/tree/feature/week-02-solid) | `semana-2-entrega` | RF/RNF, criterios, LSP, diagramas, PHP y evidencia |
 | Semana 4 | [`feature/week-04-repository`](https://github.com/DidhyerOrtiz/asii28-qa-funcional-tareas/tree/feature/week-04-repository) | `semana-4-entrega` | Repository, PostgreSQL, regresion, seis diagramas e informe DOCX/PDF |
+| Semana 5 | `feature/week-05-06-api-defense` | `semana-5-6-entrega` | Contrato REST, cliente-servidor, microservicios y plan de integracion |
+| Semana 6 | `feature/week-05-06-api-defense` | `semana-5-6-entrega` | Guia de defensa y caso practico arquitectonico |
 
 El repositorio personal excluye el codigo fuente del HIS y contiene la evidencia
 academica que se solicita compartir publicamente. La implementacion completa de la
@@ -28,6 +30,7 @@ semana 4 permanece en el repositorio colaborativo mediante el PR correspondiente
 | Integracion semana 1 | [PR #45](https://github.com/compilations-teams/sistema-hospitalario-integrado-SistenasII-2026/pull/45) | Fusionado |
 | Integracion semana 2 | [PR #54](https://github.com/compilations-teams/sistema-hospitalario-integrado-SistenasII-2026/pull/54) | Pendiente de revision |
 | Integracion semana 4 | [PR #63](https://github.com/compilations-teams/sistema-hospitalario-integrado-SistenasII-2026/pull/63) | Listo para revision |
+| Integracion semana 5 | [PR #63](https://github.com/compilations-teams/sistema-hospitalario-integrado-SistenasII-2026/pull/63) | Contrato implementado; PR abierto y sin fusionar |
 
 Los pull requests pertenecen al repositorio colaborativo. Este repositorio
 personal funciona como evidencia publica e independiente para la entrega en
@@ -41,6 +44,7 @@ cd asii28-qa-funcional-tareas
 git branch --all
 git tag --list
 git log --oneline --decorate --graph --all
+git switch feature/week-05-06-api-defense
 php -l week-02/ejemplos/validar-sustitucion.php
 php week-02/ejemplos/validar-sustitucion.php
 ```
