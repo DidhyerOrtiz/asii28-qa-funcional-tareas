@@ -1,0 +1,38 @@
+flowchart LR
+    QA[Analista QA]
+
+    subgraph CLIENTE[Cliente - SPA Vue]
+        UI[Vista QA propuesta]
+        HTTP[Axios HTTPS JSON]
+        UI --> HTTP
+    end
+
+    subgraph SERVIDOR[Servidor - API Laravel]
+        MW[JWT + Tenant + RBAC]
+        CTRL[QaRegressionController]
+        APP[ManageQaRegression]
+        PORT[QaRegressionRepository]
+        MW --> CTRL --> APP --> PORT
+    end
+
+    subgraph INFRA[Infraestructura HOSPITAL local]
+        ELO[EloquentQaRegressionRepository]
+        PG[(PostgreSQL 17<br/>seis tablas qa)]
+        FS[(Filesystem privado<br/>referencias private/qa)]
+        ELO --> PG
+    end
+
+    CENTRAL[Capacidad CENTRAL<br/>bajo prueba]
+    HOSPITAL[Capacidad HOSPITAL<br/>bajo prueba]
+    AUTO[ASII-25 automatizacion<br/>integracion futura]
+
+    QA -->|Interaccion manual| UI
+    HTTP -->|Bearer JWT + tenant| MW
+    PORT -->|Adaptador| ELO
+    APP -.->|Referencia de evidencia| FS
+    QA -->|Ejecuta pruebas manuales| CENTRAL
+    QA -->|Ejecuta pruebas manuales| HOSPITAL
+    APP -.->|Escenarios estables| AUTO
+
+    NOTE[Monolito modular<br/>sin transaccion distribuida]
+    NOTE -.-> SERVIDOR

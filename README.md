@@ -2,7 +2,7 @@
 
 Repositorio personal publico de **Didhyer Alexander Ortiz Guevara**
 ([`DidhyerOrtiz`](https://github.com/DidhyerOrtiz)) para documentar los avances de
-las semanas 1, 2 y 4 de Analisis de Sistemas II.
+las semanas 1, 2, 4, 5 y 6 de Analisis de Sistemas II.
 
 **Modulo asignado:** ASII-28 - QA funcional, pruebas manuales y matriz de
 regresion.
@@ -14,6 +14,8 @@ regresion.
 | 1 | Diagnostico, actores, limites, procesos y diagramas UML | [`week-01/`](week-01/) | [`feature/week-01-uml`](../../tree/feature/week-01-uml) |
 | 2 | RF/RNF, criterios de aceptacion y aplicacion de LSP | [`week-02/`](week-02/) | [`feature/week-02-solid`](../../tree/feature/week-02-solid) |
 | 4 | Arquitectura Repository, implementacion QA, regresion e informe final | [`week-04/`](week-04/) | [`feature/week-04-repository`](../../tree/feature/week-04-repository) |
+| 5 | Contrato API REST y plan de integracion cliente-servidor | [`week-05/`](week-05/) | `feature/week-05-06-api-defense` |
+| 6 | Guia de defensa y caso practico del primer parcial | [`week-06/`](week-06/) | `feature/week-05-06-api-defense` |
 
 ## Modelo de ramas
 
@@ -26,6 +28,7 @@ main
     ├── feature/week-01-uml
     ├── feature/week-02-solid
     ├── feature/week-04-repository
+    ├── feature/week-05-06-api-defense
     └── feature/repository-evidence
 ```
 
@@ -36,12 +39,14 @@ flowchart TB
     W1[feature/week-01-uml]
     W2[feature/week-02-solid]
     W4[feature/week-04-repository]
+    W56[feature/week-05-06-api-defense]
     EVI[feature/repository-evidence]
 
     MAIN --> DEV
     DEV --> W1
     DEV --> W2
     DEV --> W4
+    DEV --> W56
     DEV --> EVI
 ```
 
@@ -94,6 +99,28 @@ reproducible y seis diagramas finales.
 - [Matriz de regresion](week-04/MATRIZ_REGRESION.md)
 - [Evidencia reproducible](week-04/EVIDENCIA.md)
 - [PR colaborativo #63](https://github.com/compilations-teams/sistema-hospitalario-integrado-SistenasII-2026/pull/63)
+
+## Semana 5
+
+La quinta semana formaliza el contrato REST del vertical QA y su integracion con
+la SPA, middleware, caso de uso, Repository y PostgreSQL. Tambien documenta por
+que el modulo permanece dentro del monolito modular en lugar de separarse como
+microservicio.
+
+- [Indice de semana 5](week-05/README.md)
+- [Contrato API](week-05/01-contrato-api.md)
+- [Plan de integracion](week-05/02-plan-integracion.md)
+- [Cliente-servidor y microservicios](week-05/03-cliente-servidor-microservicios.md)
+- [Evidencia](week-05/EVIDENCIA.md)
+
+## Semana 6
+
+La sexta semana prepara la defensa del primer parcial con preguntas de UML,
+diseno, arquitectura, capas, Repository y cliente-servidor aplicadas al Modulo 29.
+
+- [Indice de semana 6](week-06/README.md)
+- [Guia de defensa](week-06/01-guia-defensa.md)
+- [Caso practico arquitectonico](week-06/02-caso-practico.md)
 
 ## Validacion rapida
 
