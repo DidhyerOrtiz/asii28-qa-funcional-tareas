@@ -1,4 +1,4 @@
-# Evidencia Git - avances de semanas 1, 2 y 4
+# Evidencia Git - avances de semanas 1, 2, 4 y 7 a 11
 
 ## Repositorio personal
 
@@ -15,6 +15,7 @@
 | Semana 1 | [`feature/week-01-uml`](https://github.com/DidhyerOrtiz/asii28-qa-funcional-tareas/tree/feature/week-01-uml) | `semana-1-entrega` | Alcance, actores, casos de uso y tres diagramas UML |
 | Semana 2 | [`feature/week-02-solid`](https://github.com/DidhyerOrtiz/asii28-qa-funcional-tareas/tree/feature/week-02-solid) | `semana-2-entrega` | RF/RNF, criterios, LSP, diagramas, PHP y evidencia |
 | Semana 4 | [`feature/week-04-repository`](https://github.com/DidhyerOrtiz/asii28-qa-funcional-tareas/tree/feature/week-04-repository) | `semana-4-entrega` | Repository, PostgreSQL, regresion, seis diagramas e informe DOCX/PDF |
+| Semanas 7-11 | `feature/week-07-11-design-ux` | `semana-7-11-entrega` | Componentes, UX, accesibilidad, responsive y prototipo navegable |
 
 El repositorio personal excluye el codigo fuente del HIS y contiene la evidencia
 academica que se solicita compartir publicamente. La implementacion completa de la
@@ -41,6 +42,7 @@ cd asii28-qa-funcional-tareas
 git branch --all
 git tag --list
 git log --oneline --decorate --graph --all
+git switch feature/week-07-11-design-ux
 php -l week-02/ejemplos/validar-sustitucion.php
 php week-02/ejemplos/validar-sustitucion.php
 ```
