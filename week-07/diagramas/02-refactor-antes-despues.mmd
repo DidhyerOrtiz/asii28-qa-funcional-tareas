@@ -1,0 +1,21 @@
+flowchart TB
+    subgraph BEFORE[Antes - alto acoplamiento]
+        V1[QaWorkspaceView]
+        AX1[Axios]
+        R1[Cinco rutas]
+        V1 -->|UI + estado + errores + transporte| AX1 --> R1
+    end
+
+    subgraph AFTER[Despues - responsabilidades separadas]
+        V2[Vistas por tarea]
+        S2[Stores Pinia]
+        C2[QaApiClient]
+        AX2[Axios configurado]
+        R2[API QA]
+        V2 -->|intenciones| S2
+        S2 -->|operaciones| C2
+        C2 -->|JSON normalizado| AX2
+        AX2 --> R2
+    end
+
+    BEFORE -.->|refactor| AFTER
