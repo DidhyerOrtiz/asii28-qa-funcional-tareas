@@ -2,7 +2,7 @@
 
 Repositorio personal publico de **Didhyer Alexander Ortiz Guevara**
 ([`DidhyerOrtiz`](https://github.com/DidhyerOrtiz)) para documentar los avances de
-las semanas 1, 2 y 4 de Analisis de Sistemas II.
+las semanas 1, 2, 4 y 7 a 11 de Analisis de Sistemas II.
 
 **Modulo asignado:** ASII-28 - QA funcional, pruebas manuales y matriz de
 regresion.
@@ -14,6 +14,11 @@ regresion.
 | 1 | Diagnostico, actores, limites, procesos y diagramas UML | [`week-01/`](week-01/) | [`feature/week-01-uml`](../../tree/feature/week-01-uml) |
 | 2 | RF/RNF, criterios de aceptacion y aplicacion de LSP | [`week-02/`](week-02/) | [`feature/week-02-solid`](../../tree/feature/week-02-solid) |
 | 4 | Arquitectura Repository, implementacion QA, regresion e informe final | [`week-04/`](week-04/) | [`feature/week-04-repository`](../../tree/feature/week-04-repository) |
+| 7 | Componentes backend/frontend y refactor conceptual | [`week-07/`](week-07/) | `feature/week-07-11-design-ux` |
+| 8 | Flujo UX, wireframes y reglas de interaccion | [`week-08/`](week-08/) | `feature/week-07-11-design-ux` |
+| 9 | Usabilidad, accesibilidad y mejoras priorizadas | [`week-09/`](week-09/) | `feature/week-07-11-design-ux` |
+| 10 | Diseno responsive y escenarios moviles | [`week-10/`](week-10/) | `feature/week-07-11-design-ux` |
+| 11 | Prototipo navegable desktop/mobile | [`week-11/`](week-11/) | `feature/week-07-11-design-ux` |
 
 ## Modelo de ramas
 
@@ -26,6 +31,7 @@ main
     ├── feature/week-01-uml
     ├── feature/week-02-solid
     ├── feature/week-04-repository
+    ├── feature/week-07-11-design-ux
     └── feature/repository-evidence
 ```
 
@@ -36,12 +42,14 @@ flowchart TB
     W1[feature/week-01-uml]
     W2[feature/week-02-solid]
     W4[feature/week-04-repository]
+    W711[feature/week-07-11-design-ux]
     EVI[feature/repository-evidence]
 
     MAIN --> DEV
     DEV --> W1
     DEV --> W2
     DEV --> W4
+    DEV --> W711
     DEV --> EVI
 ```
 
@@ -94,6 +102,20 @@ reproducible y seis diagramas finales.
 - [Matriz de regresion](week-04/MATRIZ_REGRESION.md)
 - [Evidencia reproducible](week-04/EVIDENCIA.md)
 - [PR colaborativo #63](https://github.com/compilations-teams/sistema-hospitalario-integrado-SistenasII-2026/pull/63)
+
+## Semanas 7 a 11
+
+Este bloque desarrolla componentes, experiencia por rol, evaluacion de
+accesibilidad, comportamiento responsive y un prototipo navegable con datos
+ficticios.
+
+- [Semana 7: componentes y refactor](week-07/README.md)
+- [Semana 8: flujo UX y wireframes](week-08/README.md)
+- [Semana 9: usabilidad y accesibilidad](week-09/README.md)
+- [Semana 10: responsive y movilidad](week-10/README.md)
+- [Semana 11: prototipo navegable](week-11/README.md)
+- [Evidencia consolidada](EVIDENCIA_SEMANAS_07_11.md)
+- [Declaracion de uso de IA](DECLARACION_IA_SEMANAS_07_11.md)
 
 ## Validacion rapida
 

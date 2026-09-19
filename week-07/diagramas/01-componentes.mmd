@@ -1,0 +1,41 @@
+flowchart LR
+    subgraph FRONT[Frontend Vue]
+        SHELL[QaShell]
+        OVER[QaOverviewView]
+        CAMP[CampaignListView]
+        EXEC[ExecutionWorkspace]
+        DEF[DefectQueueView]
+        STORE[Stores Pinia]
+        API[QaApiClient]
+        SHELL --> OVER
+        SHELL --> CAMP
+        SHELL --> EXEC
+        SHELL --> DEF
+        OVER --> STORE
+        CAMP --> STORE
+        EXEC --> STORE
+        DEF --> STORE
+        STORE --> API
+    end
+
+    subgraph BACK[Backend Laravel]
+        MW[JWT + Tenant + RBAC]
+        CTRL[QaRegressionController]
+        APP[ManageQaRegression]
+        DOMAIN[Dominio QA]
+        PORT[QaRegressionRepository]
+        MW --> CTRL --> APP
+        APP --> DOMAIN
+        APP --> PORT
+    end
+
+    subgraph DATA[Infraestructura]
+        ELO[Eloquent Adapter]
+        MEM[InMemory Adapter]
+        PG[(PostgreSQL)]
+        ELO --> PG
+    end
+
+    API -->|HTTPS JSON| MW
+    PORT --> ELO
+    PORT --> MEM

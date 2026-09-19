@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Prototipo accesible del Modulo 29 de QA funcional">
+    <title>QA 29 | Matriz de regresion</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <a class="skip-link" href="#content">Saltar al contenido</a>
+
+    <div class="app-shell">
+        <aside class="sidebar" aria-label="Navegacion principal">
+            <a class="brand" href="#overview" data-nav="overview" aria-label="QA 29, ir al resumen">
+                <span class="brand-mark" aria-hidden="true">29</span>
+                <span><strong>QA funcional</strong><small>Regresion manual</small></span>
+            </a>
+
+            <nav class="side-nav" aria-label="Secciones QA">
+                <button class="nav-item is-active" type="button" data-nav="overview" aria-current="page">
+                    <span aria-hidden="true">01</span> Resumen
+                </button>
+                <button class="nav-item" type="button" data-nav="campaigns">
+                    <span aria-hidden="true">02</span> Campanas
+                </button>
+                <button class="nav-item" type="button" data-nav="execution">
+                    <span aria-hidden="true">03</span> Ejecucion
+                </button>
+                <button class="nav-item" type="button" data-nav="defects">
+                    <span aria-hidden="true">04</span> Defectos
+                </button>
+            </nav>
+
+            <div class="tenant-card">
+                <span class="eyebrow">Contexto activo</span>
+                <strong>Hospital Norte</strong>
+                <small>Ambiente QA local</small>
+            </div>
+        </aside>
+
+        <div class="workspace">
+            <header class="topbar">
+                <div>
+                    <span class="eyebrow">Modulo 29</span>
+                    <strong id="view-title">Resumen operativo</strong>
+                </div>
+                <div class="user-chip" aria-label="Usuario actual">
+                    <span class="avatar" aria-hidden="true">DO</span>
+                    <span><strong>Didhyer Ortiz</strong><small>Analista QA</small></span>
+                </div>
+            </header>
+
+            <main id="content" tabindex="-1">
+                <section class="view is-visible" data-view="overview" aria-labelledby="overview-title">
+                    <div class="page-heading">
+                        <div>
+                            <span class="eyebrow">Corte 18 SEP 2026</span>
+                            <h1 id="overview-title">La regresion, sin puntos ciegos.</h1>
+                            <p>Version objetivo <strong>29.1.0</strong> · 18 casos priorizados · datos ficticios</p>
+                        </div>
+                        <button class="button button-primary" type="button" data-go="execution">Continuar ejecucion</button>
+                    </div>
+
+                    <div class="metric-grid" aria-label="Metricas de la campana">
+                        <article class="metric metric-accent">
+                            <span>Cobertura</span><strong>72%</strong><small>13 de 18 ejecutados</small>
+                        </article>
+                        <article class="metric">
+                            <span>Aprobados</span><strong>9</strong><small>69% de ejecutados</small>
+                        </article>
+                        <article class="metric">
+                            <span>Fallidos</span><strong>3</strong><small>1 de severidad alta</small>
+                        </article>
+                        <article class="metric">
+                            <span>Bloqueados</span><strong>1</strong><small>Dependencia CENTRAL</small>
+                        </article>
+                    </div>
+
+                    <div class="dashboard-grid">
+                        <article class="panel next-case">
+                            <div class="panel-heading">
+                                <div><span class="eyebrow">Siguiente caso</span><h2>Aislamiento entre hospitales</h2></div>
+                                <span class="status status-pending">Pendiente</span>
+                            </div>
+                            <p class="case-ref">REQ-29-14 / CA-29-08</p>
+                            <ol class="step-preview">
+                                <li>Autenticar usuario del Hospital Norte.</li>
+                                <li>Intentar consultar campana del Hospital Sur.</li>
+                                <li>Confirmar rechazo sin revelar existencia.</li>
+                            </ol>
+                            <button class="button button-dark" type="button" data-go="execution">Abrir caso 14</button>
+                        </article>
+
+                        <article class="panel activity-panel">
+                            <div class="panel-heading"><h2>Actividad reciente</h2><button class="text-button" type="button">Ver matriz</button></div>
+                            <ul class="activity-list">
+                                <li><span class="activity-dot passed"></span><div><strong>REQ-29-11 aprobado</strong><small>Hace 12 min · evidencia saneada</small></div></li>
+                                <li><span class="activity-dot failed"></span><div><strong>QA-DEF-008 abierto</strong><small>Severidad alta · version 29.1.0</small></div></li>
+                                <li><span class="activity-dot blocked"></span><div><strong>REQ-29-09 bloqueado</strong><small>Servicio CENTRAL no disponible</small></div></li>
+                            </ul>
+                        </article>
+                    </div>
+                </section>
+
+                <section class="view" data-view="campaigns" aria-labelledby="campaigns-title" hidden>
+                    <div class="page-heading compact">
+                        <div><span class="eyebrow">Planificacion</span><h1 id="campaigns-title">Campanas</h1><p>Versiones, progreso y riesgo en un solo lugar.</p></div>
+                        <button class="button button-primary" type="button">Nueva campana</button>
+                    </div>
+
+                    <div class="filter-bar" role="group" aria-label="Filtrar campanas">
+                        <button class="filter is-active" type="button" data-filter="all">Todas <span>3</span></button>
+                        <button class="filter" type="button" data-filter="active">En curso <span>1</span></button>
+                        <button class="filter" type="button" data-filter="closed">Cerradas <span>2</span></button>
+                    </div>
+
+                    <div class="campaign-list">
+                        <article class="campaign-card" data-campaign-state="active">
+                            <div><span class="status status-running">En curso</span><h2>Regresion funcional 29.1.0</h2><p>18 casos · Hospital Norte</p></div>
+                            <div class="progress-block"><span><strong>72%</strong> cobertura</span><div class="progress"><span style="width:72%"></span></div></div>
+                            <button class="button button-dark" type="button" data-go="execution">Continuar</button>
+                        </article>
+                        <article class="campaign-card" data-campaign-state="closed">
+                            <div><span class="status status-closed">Cerrada</span><h2>Smoke release 29.0.3</h2><p>8 casos · Hospital Norte</p></div>
+                            <div class="progress-block"><span><strong>100%</strong> cobertura</span><div class="progress"><span style="width:100%"></span></div></div>
+                            <button class="button button-secondary" type="button">Consultar</button>
+                        </article>
+                        <article class="campaign-card" data-campaign-state="closed">
+                            <div><span class="status status-closed">Cerrada</span><h2>Permisos tenant 29.0.2</h2><p>12 casos · Hospital Norte</p></div>
+                            <div class="progress-block"><span><strong>100%</strong> cobertura</span><div class="progress"><span style="width:100%"></span></div></div>
+                            <button class="button button-secondary" type="button">Consultar</button>
+                        </article>
+                    </div>
+                </section>
+
+                <section class="view" data-view="execution" aria-labelledby="execution-title" hidden>
+                    <div class="execution-header">
+                        <div><span class="eyebrow">REGRESION 29.1.0 · CASO 14 DE 18</span><h1 id="execution-title">Aislamiento entre hospitales</h1></div>
+                        <span class="autosave">Borrador local no sensible</span>
+                    </div>
+
+                    <div class="execution-grid">
+                        <article class="panel case-detail">
+                            <p class="case-ref">REQ-29-14 / CA-29-08</p>
+                            <h2>Procedimiento</h2>
+                            <div class="info-block"><span>Precondicion</span><p>Usuario ficticio del Hospital Norte con permiso QA.</p></div>
+                            <ol class="steps-list">
+                                <li><span>1</span>Autenticar usuario del Hospital Norte.</li>
+                                <li><span>2</span>Copiar UUID ficticio de campana del Hospital Sur.</li>
+                                <li><span>3</span>Solicitar la matriz usando ese UUID.</li>
+                            </ol>
+                            <div class="expected"><span>Resultado esperado</span><p>La API responde 404 o 403 y no revela datos del otro hospital.</p></div>
+                        </article>
+
+                        <form class="panel result-form" id="result-form">
+                            <div><span class="eyebrow">Resultado manual</span><h2>Registrar observacion</h2></div>
+                            <fieldset class="status-fieldset">
+                                <legend>Estado de ejecucion</legend>
+                                <label class="status-choice passed"><input type="radio" name="status" value="PASSED" required><span>PASSED<small>Cumple el criterio</small></span></label>
+                                <label class="status-choice failed"><input type="radio" name="status" value="FAILED"><span>FAILED<small>Existe desviacion</small></span></label>
+                                <label class="status-choice blocked"><input type="radio" name="status" value="BLOCKED"><span>BLOCKED<small>No pudo completarse</small></span></label>
+                            </fieldset>
+
+                            <label class="field">Resultado observado
+                                <textarea name="actual_result" rows="4" required placeholder="Describe solo lo observado, sin datos sensibles"></textarea>
+                            </label>
+
+                            <div class="field-grid">
+                                <label class="field">Ruta privada
+                                    <input name="path" required value="private/qa/campaign-29/execution-14.json">
+                                </label>
+                                <label class="field">Checksum SHA-256
+                                    <input name="checksum" required value="0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef">
+                                </label>
+                            </div>
+                            <p class="field-help">La referencia debe estar saneada. El prototipo no carga ni verifica archivos.</p>
+
+                            <div class="failure-fields" id="failure-fields" hidden>
+                                <label class="field">Pasos de reproduccion<textarea name="reproduction_steps" rows="3"></textarea></label>
+                                <div class="field-grid">
+                                    <label class="field">Severidad<select name="severity"><option value="">Seleccionar</option><option>LOW</option><option>MEDIUM</option><option>HIGH</option><option>CRITICAL</option></select></label>
+                                    <label class="field">Version detectada<input name="detected_version" value="29.1.0"></label>
+                                </div>
+                            </div>
+
+                            <button class="button button-primary button-full" type="submit">Guardar resultado</button>
+                        </form>
+                    </div>
+                </section>
+
+                <section class="view" data-view="defects" aria-labelledby="defects-title" hidden>
+                    <div class="page-heading compact">
+                        <div><span class="eyebrow">Seguimiento</span><h1 id="defects-title">Defectos</h1><p>Fallos reproducibles y re-pruebas pendientes.</p></div>
+                    </div>
+
+                    <div class="defect-grid">
+                        <article class="defect-card severity-high"><div class="defect-top"><span>QA-DEF-008</span><span class="status status-open">OPEN</span></div><h2>Operacion permitida sin permiso</h2><p>REQ-29-11 · detectado en 29.1.0</p><dl><div><dt>Severidad</dt><dd>HIGH</dd></div><div><dt>Responsable</dt><dd>Modulo bajo prueba</dd></div></dl><button class="button button-dark" type="button">Ver contexto</button></article>
+                        <article class="defect-card severity-medium"><div class="defect-top"><span>QA-DEF-006</span><span class="status status-reopened">REOPENED</span></div><h2>Tenant incorrecto en matriz</h2><p>REQ-29-07 · correccion 29.0.4</p><dl><div><dt>Severidad</dt><dd>MEDIUM</dd></div><div><dt>Re-prueba</dt><dd>Fallida</dd></div></dl><button class="button button-dark" type="button">Re-probar</button></article>
+                        <article class="defect-card severity-low"><div class="defect-top"><span>QA-DEF-004</span><span class="status status-closed">CLOSED</span></div><h2>Mensaje de validacion ambiguo</h2><p>REQ-29-03 · corregido en 29.0.3</p><dl><div><dt>Severidad</dt><dd>LOW</dd></div><div><dt>Re-prueba</dt><dd>Aprobada</dd></div></dl><button class="button button-secondary" type="button">Consultar</button></article>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <nav class="mobile-nav" aria-label="Navegacion movil">
+        <button class="is-active" type="button" data-nav="overview"><span>01</span>Inicio</button>
+        <button type="button" data-nav="campaigns"><span>02</span>Campanas</button>
+        <button type="button" data-nav="execution"><span>03</span>Ejecutar</button>
+        <button type="button" data-nav="defects"><span>04</span>Defectos</button>
+    </nav>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+    <script src="app.js"></script>
+</body>
+</html>
